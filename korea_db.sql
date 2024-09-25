@@ -52,7 +52,7 @@ values
 	('Kyung', 'Male', 'JEJU', 'Platinum', '010-9012-3456', 350, '2022-01-09'),
 	('Sooyoung', 'Female', 'JEJU', 'Diamond', '010-0123-4567', 600, '2018-01-10');
     
-INSERT INTO `korea_db`.`buy` (member_id, product_code, purchase_date, amount, quantity)
+INSERT INTO `korea_db`.`purchases` (member_id, product_code, purchase_date, amount, quantity)
 VALUES
 (1, 'P0001', '2024-01-15', 10000, 1),
 (1, 'P0002', '2024-01-16', 35000, 2),
@@ -62,5 +62,9 @@ VALUES
 (4, 'P0006', '2024-01-20', 35000, 5),
 (7, 'P0007', '2024-01-21', 12000, 1),
 (8, 'P0008', '2024-01-22', 13000, 2);
+
 desc `members`;
+desc `purchases`;
+
 select * from `members`;
+select * from `purchases`;
