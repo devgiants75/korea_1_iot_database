@@ -26,7 +26,45 @@
 	(where 조건 ...);
 */
 
+# 내부조인 예제1
+# : 구매 테이블에서 member_id가 1인 사람이 구매한 물건을 확인
+select * from purchases
+	inner join members
+    on purchases.member_id = members.member_id
+where purchases.member_id = 1;
 
+# cf) 조인 시 두 개 이상의 테이블에서 동일한 열 이름이 존재할 경우
+#     테이블명.열이름 형식으로 표기를 권장!
 
+# 내부조인 예제2
+# 금액이 20000원 이상인 모든 구매 내역을 조회
+select 
+	M.name, P.purchase_date, P.amount
+from
+	members as M
+		inner join purchases P
+        on M.member_id = P.member_id
+where
+	P.amount >= 20000;
 
+# 내부조인 예제3
+# 회원 이름 별로 구매 금액을 내림차순 정렬
+select
+	M.name, sum(P.amount) as total_purchase
+from
+	members M
+		join purchases P
+        on M.member_id = P.member_id
+group by 
+	M.name
+order by
+	total_purchase desc;
 
+# 내부 조인 예제4
+# 단 한번이라도 구매한 기록이 있는 회원들을 추출
+select
+	distinct M.name, M.contact
+from
+	members M
+		inner join purchases P
+        on M.member_id = P.member_id;
