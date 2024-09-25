@@ -12,6 +12,8 @@
     
     >> 모든 컬럼은 비워질 수 X
 */
+drop database if exists `korea_db`;
+
 create database `korea_db`;
 use `korea_db`;
 
@@ -39,3 +41,6 @@ values
 	('Eunji', 'Female', 'BUSAN', 'Gold', '010-8901-2345', null, '2024-01-08'),
 	('Kyung', 'Male', 'JEJU', 'Platinum', '010-9012-3456', 350, '2022-01-09'),
 	('Sooyoung', 'Female', 'JEJU', 'Diamond', '010-0123-4567', 600, '2018-01-10');
+    
+desc `members`;
+select * from `members`;
