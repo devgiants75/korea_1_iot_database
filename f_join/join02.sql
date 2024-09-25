@@ -26,6 +26,27 @@ from
         on M.member_id = P.member_id
 order by M.member_id;
 
+# : left outer join: 왼쪽 테이블의 내용은 모두 출력되어야 함!
+
+# right outer join 예제
+select
+	M.member_id, M.name, P.product_code, M.area_code
+from
+	purchases P
+right outer join
+	members M -- 오른쪽에 있는 회원 테이블을 기준으로 외부 조인
+    on M.member_id = P.member_id
+order by M.member_id;
+
+# 외부조인 예제 #
+select
+	M.member_id, P.product_code, M.name, M.contact
+from
+	members M
+		left outer join purchases P
+        on M.member_id = P.member_id
+where
+	P.product_code is null;
 
 
 
