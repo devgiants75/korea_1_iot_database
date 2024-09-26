@@ -27,9 +27,44 @@
     call `스토어드 프로시저 절차명`;
 */
 
+### SQL의 프로그래밍 종류 ###
+# 1. if문
+/*
+	기본 형식
+    if 조건식 then
+		sql문장들...;
+	end if;
+*/
 
+delimiter $$
 
+create procedure if1()
+begin
+	if 100 = 100 then
+		select '100은 100과 같습니다.';
+	end if;
+end $$
 
+delimiter ;
+
+call if1();
+    
+# if-else문
+	
+delimiter $$
+create procedure if2()
+begin
+	# 프로시저의 변수 선언(declare)
+    declare myNum int;
+    set myNum = 200;
+    if myNum = 100 then
+		select '100입니다.';
+	else
+		select '100이 아닙니다.';
+	end if;
+end $$
+delimiter ;
+call if2();
 
 
 
