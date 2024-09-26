@@ -95,7 +95,7 @@ where
 group by
 	M.member_name -- 회원별로 그룹화
 having 
-	count(P.purchase_id) >= 2 
+	item_count >= 2 
     and sum(P.item_price) >= 300;
 
 
