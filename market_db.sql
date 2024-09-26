@@ -1,5 +1,5 @@
 ### 데이터베이스 생성 / 테이블 생성 ###
--- a_market_db
+-- market_db.sql
 
 -- 전체(해당 페이지) SQL문 실행: ctrl + shift + enter
 -- 선택된(마우스 클릭 or 드래그) 영역의 SQL문 실행: ctrl + enter
