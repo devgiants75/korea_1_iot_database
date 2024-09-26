@@ -66,6 +66,80 @@ end $$
 delimiter ;
 call if2();
 
+# case문
+# : 여러 조건 중에서 선택해야 하는 경우
+/*
+	case
+	when 조건1 then
+		# sql 문장1
+	when 조건2 then
+		# sql 문장2
+	...
+    else
+		# 모든 조건에 일치하지 않을 경우
+	end case;
+*/
+
+# case문을 활용한 학점 계산기
+drop procedure if exists caseProc;
+
+delimiter ^^
+create procedure caseProc()
+begin
+	declare point int; -- 점수
+    declare credit char(1); -- 학점
+    set point = 88;
+    
+    case
+		when point >= 90 then
+			set credit = 'A';
+		when point >= 80 then
+			set credit = 'B';
+		when point >= 70 then
+			set credit = 'C';
+		when point >= 60 then
+			set credit = 'D';
+		else 
+			set credit = 'F';
+	end case;
+    select concat('취득 점수: ', point), concat('학점: ', credit);
+end ^^
+delimiter ;
+
+call caseProc();
+
+## while문 ##
+# : 조건이 참인 동안 SQL문장을 계속 반복
+
+# cf) 스토어드 프로시저에서는 for문 지원 X
+
+/*
+	기본 구조
+    while 조건식 do
+		sql 문장
+	end while;
+*/
+
+# 1에서 100까지 더하는 while문
+drop procedure if exists whileProc;
+delimiter $$
+
+create procedure whileProc()
+begin
+	declare i int;
+    declare result int;
+    set i = 1;
+    set result = 0;
+    
+    while (i <= 100) do
+		set result = result + i;
+        set i = i + 1;
+	end while;
+    select '1부터 100까지의 합', result;
+end $$
+delimiter ;
+call whileProc();
+
 
 
 
