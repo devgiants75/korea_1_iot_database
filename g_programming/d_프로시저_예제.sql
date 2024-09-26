@@ -22,7 +22,7 @@ from member M
 	left join buy B
     on B.mem_id = M.mem_id
 group by M.mem_id
-order by '총 구매액' desc;
+order by sum(B.price * B.amount) desc;
 	
 
 
