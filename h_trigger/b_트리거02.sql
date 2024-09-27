@@ -66,3 +66,23 @@ select * from backup_singer;
 
 # 삭제가 발생했을 때 작동하는 트리거
 # singer_deleteTrg
+drop trigger if exists singer_deleteTrg;
+
+delimiter $$
+create trigger singer_deleteTrg
+	after delete
+    on singer
+    for each row
+begin
+	insert into backup_singer
+    values 
+		(OLD.mem_id, OLD.mem_name, OLD.mem_number, OLD.addr
+			, '삭제', curdate(), current_user()
+        );
+end $$
+delimiter ;
+
+delete from singer
+where
+	mem_number >= 7;
+select * from backup_singer;
