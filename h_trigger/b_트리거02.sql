@@ -63,3 +63,6 @@ where
 	mem_id = 'BLK';
     
 select * from backup_singer;
+
+# 삭제가 발생했을 때 작동하는 트리거
+# singer_deleteTrg
