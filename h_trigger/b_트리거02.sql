@@ -25,5 +25,41 @@ create table backup_singer (
     modUser varchar(30) -- 변경한 사용자
 );
 
+# 변경(update)가 발생했을 때 작동하는 트리거
+drop trigger if exists singer_updateTrg;
 
+delimiter $$
+create trigger singer_updateTrg -- 트리거명
+	after update -- 변경 후에 작동하도록 지정
+	on singer -- 트리거를 부착할 테이블
+	for each row 
+begin
+	insert into backup_singer
+    values 
+		(OLD.mem_id, OLD.mem_name, OLD.mem_number, OLD.addr
+			, '수정', curdate(), current_user()
+        );
+end $$
+delimiter ;
 
+# OLD 테이블
+# : update나 delete가 수행될 때
+# : 변경되기 전의 데이터가 잠깐 저장되는 임시 테이블
+
+# curdate(): 현재 날짜
+# current_user(): 현재 작업 중인 사용자
+select current_user();
+
+select * from singer;
+
+update singer 
+set addr = '미국' 
+where 
+	mem_id = 'BLK';
+    
+update singer
+set mem_number = 6
+where
+	mem_id = 'BLK';
+    
+select * from backup_singer;
