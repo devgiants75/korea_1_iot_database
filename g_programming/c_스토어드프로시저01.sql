@@ -20,7 +20,9 @@
     create procedure `스토어드 프로시저 절차명`
     begin
 		SQL 프로그래밍 코딩
-	end $$
+        >> 각 문법의 구분 문자 ;
+        ...
+	end $$ -- 프로시저의 구분 문자 $$
     
     delimiter ; 
     
