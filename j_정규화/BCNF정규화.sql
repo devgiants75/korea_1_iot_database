@@ -41,3 +41,14 @@ create table 성적 (
     primary key (학번, 과목코드),
     foreign key (과목코드) references 과목(과목코드)
 );
+
+insert into 과목
+values
+	('123', 'dbms'),
+    ('234', '빅데이터');
+
+insert into 성적
+values
+	('101', '123', 95),
+	('102', '234', 85),
+	('103', '123', 95);
