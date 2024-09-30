@@ -76,14 +76,14 @@ COMMIT;
 select * from member;
 select * from buy;
 
+-- 사용자 계좌 정보를 저장하는 테이블
 create table account (
 	account_id varchar(10) primary key,
     account_holder varchar(50),
     balance int
 );
 
-insert into account
-values
+insert into account values
 	('A', '이승아', 5000),
 	('B', '이도경', 15000);
 
@@ -104,3 +104,56 @@ where
 commit;
 
 select * from account;
+
+###
+create table `accounts` (
+	account_id int primary key auto_increment,
+    account_holder varchar(50),
+    balance int
+);
+
+### 계좌 이체 내역을 기록하는 테이블 ###
+create table transaction_log (
+	transaction_id int primary key auto_increment,
+    from_account_id int,
+    to_account_id int,
+    amount int,
+    transaction_date timestamp default current_timestamp,
+    foreign key (from_account_id) references `accounts`(account_id),
+    foreign key (to_account_id) references `accounts`(account_id)
+);
+
+-- 두 명의 계좌 데이터를 추가
+insert into `accounts` (account_holder, balance)
+values
+	('이승아', 5000),
+	('이도경', 3000);
+
+## 이승아 > 이도경에게 1000원을 이체하는 트랜잭션
+
+# 자동 커밋을 해제하여 수동 트랜잭션을 관리
+set autocommit = 0; -- 해제
+# set autocommit = 1; -- 활성화
+
+start transaction;
+
+update `accounts`
+set balance = balance - 1000
+where account_holder = '이승아';
+
+update `accounts`
+set balance = balance + 1000
+where account_holder = '이도경';
+
+insert into transaction_log (from_account_id, to_account_id, amount)
+values (
+	(select account_id from `accounts` where account_holder = '이승아'),
+	(select account_id from `accounts` where account_holder = '이도경'),
+    1000
+);
+
+commit;
+
+set autocommit = 1; -- 자동 커밋 다시 활성화
+
+select * from transaction_log;
