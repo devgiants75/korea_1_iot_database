@@ -12,7 +12,7 @@
 # > 제3정규형의 경우 '이행적 종속성을 제거'
 
 # 학번(PK) | 이름 | 학과 ID | 학과명 | 학과위치
-
+-- drop table departments_3;
 -- 학과 테이블(학과ID, 학과명, 학과위치를 별도로 분리)
 create table departments_3 (
 	department_id int primary key,
