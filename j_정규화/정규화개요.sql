@@ -69,14 +69,69 @@ where
 
 select * from `student_course`;
 
+### 3. 정규화 예시
+# 학생, 과목, 학생-과목 테이블
+create table student (
+	student_id int primary key,
+    student_name varchar(50)
+);
 
+create table course (
+	course_id int primary key,
+    course_name varchar(50),
+    professor_name varchar(50)
+);
 
+# 학생 - 과목 관계 테이블
+create table student_course_connect (
+	student_id int,
+    course_id int,
+    primary key (student_id, course_id),
+    foreign key (student_id) references student(student_id),
+    foreign key (course_id) references course(course_id)
+);
 
+insert into student 
+values
+	(1, '정수은'),
+    (2, '권세혁'),
+    (3, '황현지');
 
+insert into course
+values
+	(101, 'iot국비', '이승아'),
+    (102, 'sqf국비', '김준일'),
+    (103, '프론트엔드', '김순조');
 
+insert into student_course_connect
+values
+	(1, 101),
+	(2, 101),
+	(3, 101),
+    (3, 103); -- 복합 키 설정이기 때문에 두 개의 컬럼을 합친 내용이 다른 레코드와 중복 X
 
+select * from student;
+select * from course;
+select * from student_course_connect;
 
+-- 수강생 없이 새로운 과목 등록
+insert into course
+values 
+	(104, '앱 개발', '윤준형');
 
+-- 강사의 이름을 갱신(수정)
+update course
+set professor_name = '김준일강사님'
+where
+	professor_name = '김준일';
 
+-- 수강 정보 삭제 시 학생과 과목 정보에 영향이 미치지 않음
+delete from student_course_connect
+where
+	student_id = 3;
+
+select * from student;
+select * from course;
+select * from student_course_connect;
 
 
